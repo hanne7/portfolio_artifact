@@ -1,0 +1,67 @@
+﻿0. dev001계정으로 접속
+1. 프로젝트 생성
+08_Review_by_Manager
+
+$ cd ~/git
+[1]+  Done                    gitk --all  (wd: ~/git/07_Basic_Review)
+(wd now: ~/git)
+
+Administrator@a401 MINGW64 ~/git
+$ pwd
+/c/Users/Administrator/git
+
+Administrator@a401 MINGW64 ~/git
+$ git clone ssh://admin@a401:29418/08_Review_by_Manager && scp -p -P 29418 admin@a401:hooks/commit-msg 08_Review_by_Manager/.git/hooks/
+Cloning into '08_Review_by_Manager'...
+remote: Counting objects: 2, done
+remote: Finding sources: 100% (2/2)
+remote: Total 2 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (2/2), done.
+commit-msg                                    100% 4691     3.0MB/s   00:00
+$ git checkout -b dev1
+Switched to a new branch 'dev1'
+
+$ vi calculator.java
+$ git add *
+$ git commit -m "first version"
+$ cat calculator.java
+public class calculator{
+        public int add(int num1, int num2){
+                return num1+num2;
+        }
+        public int sub(int num1, int num2){
+                return num1-num2;
+        }
+        public int mul(int num1, int num2){
+                return num1*num2;
+        }
+        public int div(int num1, int num2){
+                return num1/num2;
+        }
+}
+$ git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+
+Administrator@a401 MINGW64 ~/git/08_Review_by_Manager (master)
+$ git merge dev1
+Updating 6efb748..78ceb06
+Fast-forward
+ calculator.java | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+ create mode 100644 calculator.java
+$ git push origin HEAD:refs/for/master
+
+dev001 계정으로 접속
+All- open 에서 first version 변경 항목 클릭
+Reviewers에 reviewer 지정 administrator
+
+로그아웃 및 admin 계정으로로 접속
+
+All- open 에서 first version 변경 항목 클릭
+
+code review 2점 및 verify 점수 1점 부여 하고 'post'버튼 클릭
+'submit' 버튼 클릭
+
+$ git fetch
+gitk에서 변경관리 서버 내용이 형상관리 서버와 동기화 되는지 확인

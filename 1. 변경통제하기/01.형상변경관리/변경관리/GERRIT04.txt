@@ -1,0 +1,146 @@
+﻿0. administrator계정으로 접속
+1. 프로젝트 생성
+09_Comment_by_Manager
+
+$ cd ~/git
+[1]+  Done                    gitk --all  (wd: ~/git/07_Basic_Review)
+(wd now: ~/git)
+
+Administrator@a401 MINGW64 ~/git
+$ pwd
+/c/Users/Administrator/git
+
+Administrator@a401 MINGW64 ~/git
+$ git clone ssh://admin@a401:29418/08_Review_by_Manager && scp -p -P 29418 admin@a401:hooks/commit-msg 08_Review_by_Manager/.git/hooks/
+Cloning into '08_Review_by_Manager'...
+remote: Counting objects: 2, done
+remote: Finding sources: 100% (2/2)
+remote: Total 2 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (2/2), done.
+commit-msg                                    100% 4691     3.0MB/s   00:00
+$ git checkout -b dev1
+Switched to a new branch 'dev1'
+
+$ vi calculator.java
+$ cat calculator.java
+public class calculator{
+        public int add(int num1, int num2){
+                return num1+num2;
+        }
+        public int sub(int num1, int num2){
+                return num1-num2;
+        }
+        public int mul(int num1, int num2){
+                return num1*num2;
+        }
+        public int div(int num1, int num2){
+                return num1/num2;
+        }
+}
+
+$ git add *
+$ git commit -m "My first calculator"
+
+$ git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+
+Administrator@a401 MINGW64 ~/git/08_Review_by_Manager (master)
+$ git merge dev1
+Updating 6efb748..78ceb06
+Fast-forward
+ calculator.java | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+ create mode 100644 calculator.java
+
+git push origin HEAD:refs/for/master
+
+All- open 에서 first version 변경 항목 클릭
+Reviewers에 reviewers 지정 dev001
+add 버튼 클릭
+
+상단 메뉴에 all 메뉴 클릭
+우측 상단에 계정 클릭하여 switch account 메뉴 클릭
+dev001 계정선택
+
+All- open 에서 My first calculator 변경 항목 클릭
+
+calculator.java 클릭
+
+우축 상단에 comment 아이콘을 선택
+comment 입력
+
+특정 라인에는 c를 입력하여 라인별 comment입력
+
+다시 변경 내역으로 돌아가서 Reply 버튼 클릭수
+코멘트를 입력한다음에 post 버튼 클릭
+
+administrator계정으로 접속
+관리자 comment 확인
+
+재작업 시작
+$ vi calculator.java
+
+Administrator@a401 MINGW64 ~/git/09_Comment_by_Manager (dev1)
+$ cat calculator.java
+// calculator.java ver1.0
+// Developer: Gaeun Park
+// Reviewer: Hyunkoo Lee
+public class calculator{
+        public int add(int num1, int num2){
+                return num1+num2;
+        }
+        public int sub(int num1, int num2){
+                return num1-num2;
+        }
+        public int mul(int num1, int num2){
+                return num1*num2;
+        }
+        public int div(int num1, int num2){
+                if (num2 == 0)
+                        System.out.println("분모는 0이 올 수 없습니다.");
+
+                return num1/num2;
+        }
+}
+
+$ git add *
+
+Administrator@a401 MINGW64 ~/git/09_Comment_by_Manager (dev1)
+
+
+Administrator@a401 MINGW64 ~/git/09_Comment_by_Manager (dev1)
+$ git commit -a --amend
+[master 5613253] My first calculator
+ Date: Wed Mar 28 14:59:35 2018 +0900
+ 1 file changed, 22 insertions(+)
+ create mode 100644 calculator.java
+
+Administrator@a401 MINGW64 ~/git/09_Rework_Test (master)
+$ git push origin HEAD:refs/for/master
+Counting objects: 3, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 548 bytes | 548.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+remote: Processing changes: updated: 1, refs: 1, done
+remote:
+remote: Updated Changes:
+remote:   http://a401:8080/22 My first calculator
+remote:
+To ssh://a401:29418/09_Rework_Test
+ * [new branch]      HEAD -> refs/for/master
+
+reply에 변경 내역 모두 수정했다는 메세지 남기고 post 버튼 클릭
+
+dev001계정으로 접속
+변경 사항 확인후 
+reply에서 code review, verify 점수를 각각 2,1점 부과하여 최종 승인을 한다.
+post, submit 버튼을 선택한다.
+
+$ git fetch 
+gitk에서 변경관리 서버의 내용이 형상관리 서버와 동기화 되는 것을 확인한다.
+
+
+$ git fetch
+gitk에서 변경관리 서버 내용이 형상관리 서버와 동기화 되는지 확인

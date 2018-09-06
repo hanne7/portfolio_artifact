@@ -1,0 +1,116 @@
+﻿[Tag작성]
+
+- 06_Tag 프로젝트 생성
+
+$ pwd
+/c/Users/Administrator/git
+
+Administrator@a401 MINGW64 ~/git
+$ git clone ssh://admin@a401:29418/06_Tag
+Cloning into '06_Tag'...
+remote: Counting objects: 2, done
+remote: Finding sources: 100% (2/2)
+remote: Total 2 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (2/2), done.
+
+$ cd 06_Tag/
+
+$ vi calculator.java
+$ git add *
+warning: LF will be replaced by CRLF in calculator.java.
+The file will have its original line endings in your working directory.
+
+Administrator@a401 MINGW64 ~/git/06_Tag (master)
+$ git commit -m "calculator.java is created"
+[master f06d060] calculator.java is created
+ 1 file changed, 3 insertions(+)
+ create mode 100644 calculator.java
+
+$ vi calculator.java
+
+Administrator@a401 MINGW64 ~/git/06_Tag (master)
+$ git add *
+warning: LF will be replaced by CRLF in calculator.java.
+The file will have its original line endings in your working directory.
+
+Administrator@a401 MINGW64 ~/git/06_Tag (master)
+$ git commit -m "Add comment"
+[master 642b590] Add comment
+ 1 file changed, 2 insertions(+)
+
+Administrator@a401 MINGW64 ~/git/06_Tag (master)
+$ cat calculator.java
+// Our project begins
+// Developer: HK Lee
+public class calculator{
+
+}
+$ vi calculator.java
+
+Administrator@a401 MINGW64 ~/git/06_Tag (master)
+$ cat calculator.java
+// Our project begins
+// Developer: HK Lee
+public class calculator{
+        public int add(int num1, int num2){
+                return num1+num2;
+        }
+}
+
+Administrator@a401 MINGW64 ~/git/06_Tag (master)
+$ git add *
+warning: LF will be replaced by CRLF in calculator.java.
+The file will have its original line endings in your working directory.
+
+Administrator@a401 MINGW64 ~/git/06_Tag (master)
+$ git commit -m "Add add function"
+[master 3ce962a] Add add function
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+$ gitk --all&
+[1] 8632
+$ git tag -a 'DR1' -m "1차 개발 완료"
+
+Administrator@a401 MINGW64 ~/git/06_Tag (master)
+$ vi calculator.java
+
+Administrator@a401 MINGW64 ~/git/06_Tag (master)
+$ cat calculator.java
+// Our project begins
+// Developer: HK Lee
+public class calculator{
+        public int add(int num1, int num2){
+                return num1+num2;
+        }
+        public int sub(int num1, int num2){
+                return num1-num2;
+        }
+}
+$ add 및 commit
+$ vi calculator.java
+
+Administrator@a401 MINGW64 ~/git/06_Tag (master)
+$ cat calculator.java
+// Our project begins
+// Developer: HK Lee
+public class calculator{
+        // Simple add function
+        // Dev by Gaeun Park
+        // Reviewer Hyunkoo Lee
+        public int add(int num1, int num2){
+                return num1+num2;
+        }
+        // Simple sub function
+        // Dev by Bunjin Park
+        // Reviewer Hyunkoo Lee
+        public int sub(int num1, int num2){
+                return num1-num2;
+        }
+}
+$ add 및 commit
+$ vi calculator.java
+곱셈함수를 작성한다.
+$ add 및 commit을 한다.
+$ git tag
+$ git checkout DR1
+$ cat calculator.java
+DR1의 형상으로 복원이 된다.

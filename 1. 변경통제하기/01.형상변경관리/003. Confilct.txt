@@ -1,0 +1,27 @@
+﻿*** Conflict
+
+$ cd ~/git/01_Basic_Commit
+(학원 컴퓨터)
+학원 컴퓨터에서 calculator.java 수정 (add 함수)
+int my_add(int number1, int number2){
+                if (number1 < 0 or number2 < 0)
+                        return;
+                return number1+number2;
+        }
+Git Bash 쉘을 하나 더 생성한다.
+$ cd ~/git/01_Basic_Commit_Home
+calculator.java 수정 (add 함수를 다르게 작성한다.)
+int my_add(int number1, int number2){
+                if (number1 + number2 < 0)
+                        return;
+                return number1+number2;
+        }
+
+학원 컴퓨터에서 add, commit, push를 한다.
+집 컴퓨터에서 add, commit, push를 한다.
+집 컴퓨터에서 push 할 경우 에러가 발생한다.
+집 컴퓨터에서 pull을 한다.
+calculator.java를 열어서 충돌이 나는 영역을 수동으로 통합한다.
+집컴퓨터에서 다시 add, commit, push를 한다.
+commit -m을 사용하지 않는다.
+git commit

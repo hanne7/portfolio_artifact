@@ -1,0 +1,45 @@
+﻿**** 기본 설정
+
+* SSH 키 등록
+
+Git Bash 실행		(윈도우 ==> 시작 메뉴 ==> Git Bash)
+ssh-keygen -t rsa		(이미 존재하면 Overwrite 및 디폴트로 생성)
+cat ~/.ssh/id_rsa.pub	(Public Key 내용 복사)
+http://hrdc501-00:8080	(Git 서버 콘솔 - Gerrit 접속 / IE 안되면 Chrome으로)
+dev0NN~dev0NN 계정으로 로그인	(오른쪽 상단 Become 또는 Switch User)
+			(0NN은 각자 PC 번호)
+오른쪽 상단 계정 ==> Settings ==> SSH Public Keys ==> Add Key로 추가/붙여 넣기 ==> Add 버튼
+
+* SSH Key 정상 등록 확인
+
+Git Bash 실행		(윈도우 ==> 시작 메뉴 ==> Git Bash)
+$ ssh -p 29418 dev0NN@hrdc501-00	(welcome 메시지 나오면 성공... 00은 강사 PC)
+
+* 각자 계정 확인
+$ git config --global user.name "dev0NN"
+$ git config --global user.email "dev0NN@test.com"
+$ git config --list | grep user.name	(dev001 ~ dev024인지 확인. 각자 PC번호)
+
+* 프로젝트 생성
+
+Git 서버/Gerrit 로그인		(http://hrdc501-00:8080)
+왼쪽 상단 메뉴 Projects ==> Create New Project
+Project Name: dev001proj ~ dev024proj	(각자 PC 번호)
+Rights Inherit From: All Projects		(프로젝트 권한 상속)
+Create initial emtpy commit 체크		(반드시 체크)
+Create Project 버튼		(프로젝트 최종 생성)
+
+* 서버로부터 로컬 Repo로 프로젝트 clone
+
+메뉴 Projects ==> General로 들어가서		(또는 Project List에서 선택 후)
+"ssh + Clone" URL 복사		(각자 ID, 프로젝트 명 잘 확인!!!!)
+
+Git Bash 가서
+$ cd ~/git
+$ git clone ssh://dev0NN@HRDC501-00:29418/dev001proj		(계정 명 dev001을 각자 맞게 변경)
+$ cd dev0NNproj
+$ git status
+$ git log
+$ gitk --all		(백그라운드로 띄우려면 gitk --all &)
+
+

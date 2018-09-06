@@ -1,0 +1,31 @@
+﻿*** Gerrit 테스트 준비
+0. Administrator 로그인
+Project-List All-Projects선택
+Access 메뉴 선택
+Edit 버튼 클릭
+
+Reference: refs/heads/*
+Add Permission 선택
+Label Verified를 선택
+git-training 그룹 추가
+Save Changes 버튼 클릭
+
+
+1. 각자 프로젝트 생성
+
+Gerrit 로그인
+Projects ==> 07_Basic_Review
+Project Name: ReviewTest (각자 PC 번호)
+Rights Inherit From: All Projects
+Create initial emtpy commit 체크
+Create Project
+
+2. 프로젝트 clone (Clone with commit-msg hook)
+
+Projects ==> General ==> ssh + Clone with commit-msg hook URL 복사 (각자 ID, 프로젝트 명 잘 확인!!!!)
+
+Git Bash 가서
+$ cd ~/git
+$ git clone ssh://dev001@HRDC504-00:29418/07_Basic_Review && scp -p -P 29418 dev001@HRDC504-00:hooks/commit-msg dev001proj/.git/hooks/               (계정 명 dev001을 각자 맞는지 확인 후)
+$ cd 07_Basic_Review
+

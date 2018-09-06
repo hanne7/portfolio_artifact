@@ -1,0 +1,145 @@
+﻿* JDK 설치
+* Git 클라이언트 프로그램을 설치
+ google에서 git 검색하여 설치
+* Git 서버 카피 
+ - C:\Users\SEC 폴더를 생성한다.
+ Users가 탐색기에서는 '사용자'로 보인다.
+ gerrit 폴더를 'C:\Users\SEC'에 붙여 넣는다.
+* Git 서버 환경설정
+git bash 쉘을 연다. (프로그램 - Git - Git Bash)
+$ hostname
+a401
+$ whoami
+Administrator
+
+수행 결과를 카피한다.
+C:\Users\SEC\gerrit\etc\gerrit.config 파일을 연다.
+canonicalWebUrl = http://HPC501:8080/
+여기에서 접속 도메인 명을 hostname으로 변경한다.
+canonicalWebUrl = http://a401:8080/
+
+[container]
+	user = USER1
+user의 값을 bash shell의 whoami 결과로 바꾼다.
+	user = Administrator
+[container]
+	javaHome = C:\\Program Files\\Java\\jdk1.8.0_152\\jre
+여기서 주의사항은 \을 \\로 변경한다.
+
+* Git 서버 구동
+도스 커멘드 창 실행
+E:\아키텍처>cd C:\Users\SEC\gerrit
+
+E:\아키텍처>C:
+
+C:\Users\SEC\gerrit>run.cmd
+아래 메세지가 나오면 초기 환경설정은 성공
+[2018-03-23 12:08:52,600] [main] INFO  com.google.gerrit.pgm.Daemon : Gerrit Code Review 2.14 ready
+
+* SSH 키 등록
+
+Git Bash 실행		(윈도우 ==> 시작 메뉴 ==> Git Bash)
+ssh-keygen -t rsa	(이미 존재하면 Overwrite 및 디폴트로 생성
+			 주의사항: 절대 창크기 변경하지 말것)
+
+$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/Administrator/.ssh/id_rsa):
+/c/Users/Administrator/.ssh/id_rsa already exists.
+Overwrite (y/n)? y
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/Administrator/.ssh/id_rsa.
+Your public key has been saved in /c/Users/Administrator/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:56sxUXeAyHuFHB4h/fUHURM5nxlAxeLFVv1sWuBGIdM Administrator@a401
+The key's randomart image is:
++---[RSA 2048]----+
+|       ..++==+BBB|
+|        oo=..=EOo|
+|         .ooo+==B|
+|        .....oooO|
+|        S..  . +.|
+|         +    .  |
+|        o .      |
+|         o .     |
+|        ...      |
++----[SHA256]-----+
+
+
+cat ~/.ssh/id_rsa.pub	(Public Key 내용 복사)
+$ cat ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMN39dkJG3l4tbwUqbIzPqiTMLA9SXp7MN0KkIjiAbboBckAlE/XLbnVQArk8q9qYCKE52UycztlVONawcLjhemP8MKqQ0wfTyCDLzxZ2U+4nvRn4pL4WPQZgujO40rlXBFEx/71T2eEa/6cyXjIGtYjwLChtOf9U9DwT0FfA/iIPVmUjTwEZsL9JU+Q+CrwP+PC0eaLjtS1AA83az6e9FSKm7gv5T1GirYBqdzeL0u7ZTna9KxSFubmLVOOjhFqEEspuhi0mF2GlszoAUSUiRhQjT+gy7hijtERnVswZth3t7KpF2aLpEMyB2ibnJdShF5IPWS1a0z9TvEGSVKYFz Administrator@a401
+
+* Git 서버 접속
+http://[hostname]:8080	(Git 서버 콘솔 - Gerrit 접속 / 반드시 Chrome으로)
+http://a401:8080
+
+* Git 웹서버 설정
+- 우측 상단의 Becaome 메뉴 클릭
+- Administrator 클릭
+오른쪽 Administrator 계정 ==> Settings ==> SSH Public Keys 
+기존의 키 체크박스 선택 후 'Delete'버튼 선택
+- Bash Shell에 있는 key 카피
+
+==> Add Key로 추가/붙여 넣기 ==> Add 버튼
+(참고사항: 다음화면으로 넘어가지 않을 경우에는 'SSH Public Keys' 메뉴를 선택하여 들어왔으면 정상적으로 Add 한 케이스)
+
+* SSH Key 정상 등록 확인
+
+* 각자 계정 확인
+$ whoami
+Administrator
+$ git config --global user.name "Administrator"
+$ git config --global user.email "Administrator@test.com"
+$ git config --list | grep user.name	(dev001 ~ dev024인지 확인. 각자 PC번호)
+
+* 프로젝트 생성
+왼쪽 상단 메뉴 Projects ==> Create New Project
+Project Name: 01_Basic_Commit
+Rights Inherit From: All Projects		(프로젝트 권한 상속)
+Create initial emtpy commit 체크		(반드시 체크)
+Create Project 버튼		(프로젝트 최종 생성)
+
+* 서버로부터 로컬 Repo로 프로젝트 clone
+
+메뉴 Projects ==> General로 들어가서		(또는 Project List에서 선택 후)
+"ssh + Clone" URL 복사		(ssh탭인지 확인할 것,각자 ID, 프로젝트 명 잘 확인!!!!)
+
+Git Bash 가서
+$ cd ~
+$ mkdir git
+$ cd git
+$ pwd
+/c/Users/Administrator/git 
+(위에 디렉토리가 앞으로 실습할 워크스페이스 경로)
+Git 웹서버에서 clone URL 카피 (카피 아이콘 선택)
+$ git clone ssh://admin@a401:29418/01_Basic_Commit
+$ ls 01_Basic_Commit/	
+Administrator@a401 MINGW64 ~/git/01_Basic_Commit (master)	
+$ cd 01_Basic_Commit
+$ ls -alF
+total 4
+drwxr-xr-x 1 Administrator 197121 0 Mar 23 12:31 ./
+drwxr-xr-x 1 Administrator 197121 0 Mar 23 12:31 ../
+drwxr-xr-x 1 Administrator 197121 0 Mar 23 12:31 .git/
+(.git 폴더는 형상관리 레파지토리)
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+(master: 형상관리 레파지토리를 생성했을 경우 Default로 관리되는
+저장공간
+origin: 형상관리서버에서 Default로 관리되는 식별자)
+$ git log
+commit 10106420de4633f9b460fdbd0c526b8597bfd3c3 (HEAD -> master, origin/master, origin/HEAD)
+Author: Administrator <admin@example.com>
+Date:   Fri Mar 23 12:24:38 2018 +0900
+
+    Initial empty repository
+
+
+
+
+

@@ -1,0 +1,120 @@
+?*** Branch 테스트 
+0. 프로젝트 생성
+04_Branch_Dev1 프로젝트 생성(Git Web Server에서)
+
+
+1. branch 생성
+$ cd ~/git
+$ git clone ssh://admin@a401:29418/04_Branch_Dev1 (프로젝트 Clone)
+$ cd 04_Branch_Dev1
+$ git checkout -b dev1	(브랜치 생성)
+Switched to a new branch 'dev1'
+$ git branch			(브랜치 목록 보기)
+* dev1
+  master
+$ vi calculator.java		(파일 추가)
+public class calculator{
+}
+$ git status			(상태 보기)
+$ git log
+$ gitk --all&
+
+
+2. branch에서 Dev1 개발자 개발 시작
+$ git add calculator.java
+warning: LF will be replaced by CRLF in calculator.java.
+The file will have its original line endings in your working directory.
+$ git commit -m "calculator.java is created"
+[dev1 ec98416] calculator.java is created
+ 1 file changed, 3 insertions(+)
+ create mode 100644 calculator.java
+
+$ git log
+commit ec98416c6fcc71d8ba2819fd985eac8772da944a (HEAD -> dev1)
+Author: Administrator <Administrator@test.com>
+Date:   Mon Mar 26 10:27:42 2018 +0900
+
+    calculator.java is created
+
+commit ffaf2e1f918124a76c03c88dc0b9373e3afdd0cb (origin/master, origin/HEAD, master)
+Author: Administrator <admin@example.com>
+Date:   Mon Mar 26 10:20:26 2018 +0900
+
+    Initial empty repository
+
+$ gitk 갱신
+$ add 함수 추가
+public class calculator{
+        public int sum(int num1, int num2){
+                return num1+num2;
+        }
+}
+
+$ git add calculator.java
+warning: LF will be replaced by CRLF in calculator.java.
+The file will have its original line endings in your working directory.
+
+Administrator@a401 MINGW64 ~/git/04_Branch_Dev1 (dev1)
+$ git commit -m "Add add function"
+[dev1 dce7378] Add add function
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+$ git log 확인
+$ gitk 갱신
+
+$ 뺄셈 함수 작성
+public class calculator{
+        public int sum(int num1, int num2){
+                return num1+num2;
+        }
+        public int substraction(int num1, int num2){
+                return num1-num2;
+        }
+}
+$ git add calculator.java
+warning: LF will be replaced by CRLF in calculator.java.
+The file will have its original line endings in your working directory.
+
+Administrator@a401 MINGW64 ~/git/04_Branch_Dev1 (dev1)
+$ git commit -m "Add subtraction function"
+[dev1 ba0a7fd] Add subtraction function
+ 1 file changed, 3 insertions(+)
+$ git log 확인
+$ gitk 갱신
+
+
+$ git checkout master		(브랜치 간 이동)
+
+
+
+3. branch 병합 (fast-forward)
+$ git merge dev1 		(현재 master 브랜치에서 branch1 브랜치 병합)
+$ git push origin master	(서버 Repo로 Push - 로컬의 master를 서버의 master로)
+
+
+
+4. Local Repo 2에 가서 Pull - 다른 개발자가 변경 내용을 가져온다고 가정
+$ cd ..
+$ pwd
+/c/Users/Administrator/git
+$ git clone ssh://admin@a401:29418/04_Branch_Dev1 04_Branch_Dev2
+Cloning into '04_Branch_Dev2'...
+remote: Counting objects: 14, done
+remote: Finding sources: 100% (14/14)
+remote: Total 14 (delta 2), reused 12 (delta 2)
+Receiving objects: 100% (14/14), 1.19 KiB | 203.00 KiB/s, done.
+Resolving deltas: 100% (2/2), done.
+
+$ cd 04_Branch_Dev2
+
+Administrator@a401 MINGW64 ~/git/04_Branch_Dev2 (master)
+$ pwd
+/c/Users/Administrator/git/04_Branch_Dev2
+
+Administrator@a401 MINGW64 ~/git/04_Branch_Dev2 (master)
+$ git branch
+* master
+
+<연습>
+- 04_Branch_Dev2 프로젝트에서 dev2 브랜치를 작성
+- 곱셈, 나눗셈 함수를 작성하여 master에 병합
+- 서버에 push 한후 04_Branch_Dev1 프로젝트에서 병합 

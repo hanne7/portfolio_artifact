@@ -1,0 +1,39 @@
+?*** Branch 테스트 
+0. 프로젝트 생성
+04_Branch 프로젝트 생성(Git Web Server에서)
+
+1. branch 생성
+$ cd ~/git
+$ git clone ssh://admin@a401:29418/04_Branch (프로젝트 Clone)
+$ cd 04_Branch
+$ git checkout -b branch1	(브랜치 생성)
+Switched to a new branch 'branch1'
+$ git branch			(브랜치 목록 보기)
+* branch1
+  master
+$ vi branch1.txt		(파일 추가)
+$ git status			(상태 보기)
+$ git log
+$ gitk --all&
+
+
+2. branch 이동
+$ git checkout master		(브랜치 간 이동)
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+$ git status
+$ git branch			(브랜치 목록 보기)
+  branch1
+* master
+
+
+$ git checkout branch1
+3. branch 병합 (fast-forward)
+$ git add branch1.txt		(Commit 대상으로 추가)
+$ git commit -m "branch1"	(커밋)
+$ git checkout master
+$ git log
+
+$ git checkout master 		(master 브랜치로 이동 - 병합을 위해/ 통합을 하기 위해서는 통합 기준이 되는 master에서 한다.)
+$ git merge branch1 		(현재 master 브랜치에서 branch1 브랜치 병합)
+$ git push origin master	(서버 Repo로 Push - 로컬의 master를 서버의 master로)

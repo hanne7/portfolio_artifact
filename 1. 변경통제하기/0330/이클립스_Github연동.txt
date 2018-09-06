@@ -1,0 +1,62 @@
+* 원격레파지토리에서 프로젝트 삭제하는법
+- 프로젝트 링크를 클릭
+- Settings 아이콘을 클릭
+- Repository name에 셋팅된 프로젝트 이름을 카피
+- 하단에 'Delete this repository' 버튼을 클릭
+- I understand ... 버튼 클릭
+
+* 셈플프로젝트
+- Create a new repository에서 Sample_Java_Project 프로젝트 생성
+- 프로젝트 생성
+- Sample_Java_Project 워크스페이스 생성
+ C:\Eclipse_Workspace\Simple_Java_Project
+- 이클립스 실행
+ 워크스페이스를 'C:\Eclipse_Workspace\Simple_Java_Project'
+C:\Eclipse_Workspace <= 여러개의 Java 프로젝트를 위한 Root 워크스페이스
+- 'Simple_Calculator'이름으로 자바 프로젝트 생성
+- Calculator.java 생성
+- 프로젝트 우클릭 - Team - Share Project 선택
+- 로컬 레파지토리 생성
+ C:\Git_Repository\Simple_Calculator
+C:\Git_Repository <= 여러개의 프로젝트가 필요한 로컬 레파지토리를 위한 Root 경로
+로컬 레파지토리 경로 지정 하고 finish 버튼
+- 프로젝트 클릭 - Ctrl + # (commit 단축키)
+- 원격 레파지토리 URI 입력
+
+- Windows - preference - Team - git - commiting - Use Staging view to commit instead of commit dialog 체크박스 해제
+
+
+* 두 대의 컴퓨터에서 형상 변경 관리
+개념적으로 집에서 사용할 Eclipse workspace를 생성하다.
+C:\Eclipse_Workspace\Simple_Java_Project_Home
+개념적으로 집에서 사용하는 Simple_Java_Project의 Local 레파지토리 폴더를 생성한다.
+- 이클립스를 별도로 수행한다. (현재 두개의 이클립스 수행중)
+- File-import 메뉴 클릭
+C:\Git_Repository\Simple_Calculator_Home
+- Import 창에서 Git- Project from Git 선택후 Next 버튼 클릭
+- Clone URI 선택 후 Next 버튼 클릭
+- Github에서 프로젝트 링크를 클릭
+- Clone or download 아이콘 클릭
+- copy to clipboard 아이콘 클릭
+- URI 복사 - Next
+- 다시 Next
+- Local Destination에 아래 경로 입력
+C:\Git_Repository\Simple_Calculator_Home
+- Next
+- Finish
+- 집컴퓨터에서도 Windows-Preference-Team-Git에서 commiting 옵션을 변경해야함
+- 집컴퓨터에서 소스 변경 - commit & push
+- github에서 변경사항 확인
+- 학원 컴퓨터에서 pull 하여 동기화
+
+* 충돌 사항 확인
+- 학원 컴퓨터와 집컴퓨터 워크스페이스에 있는 파일에서 동시에 충돌이 되는 작업을 수행한다.
+- 학원 컴퓨터에서 commit
+- 집컴퓨터에서 commit <- 집컴퓨터에서 commit이 되지 않는 것을 확인한다.
+- 집컴퓨터에서 pull
+- 에디터 상에서 충돌되는 내용을 확인
+- 수동으로 머지한다.
+- (주의!!!!!!!) add to index를 반드시한다.
+- 집 컴퓨터에서 commit and push 한다.
+- 학원 컴퓨터에서 pull
+- 학원, 형상관리서버, 집 컴퓨터 형상이 모두 동일 한지 확인한다.

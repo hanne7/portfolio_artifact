@@ -1,0 +1,111 @@
+﻿﻿*** Branch Conflict 테스트 
+
+$ git 웹서버에서 04_Branch_Conflict 프로젝트 생성
+$ cd ~/git
+
+$ git clone ssh://admin@a401:29418/04_Branch_Conflict
+Cloning into '04_Branch_Conflict'...
+remote: Counting objects: 2, done
+remote: Finding sources: 100% (2/2)
+remote: Total 2 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (2/2), done.
+
+Administrator@a401 MINGW64 ~/git
+$ cd 04_Branch_Conflict/
+
+
+1. branch 생성
+$ git checkout -b branch1	(브랜치 생성)
+$ git branch			(브랜치 목록 보기)
+$ vi branch1.txt		(파일 추가)
+branch1.txt is created
+$ git add branch1.txt
+warning: LF will be replaced by CRLF in branch1.txt.
+The file will have its original line endings in your working directory.
+
+Administrator@a401 MINGW64 ~/git/04_Branch_Conflict (branch1)
+$ git commit -m "branch1.txt is created"
+[branch1 c816afe] branch1.txt is created
+ 1 file changed, 1 insertion(+)
+ create mode 100644 branch1.txt
+
+$ git checkout master 		(master 브랜치로 이동 - 병합을 위해)
+$ git merge branch1 		(현재 master 브랜치에서 branch1 브랜치 병합)
+
+Fast-forward
+ branch1.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 branch1.txt
+
+$ git checkout branch1
+Switched to branch 'branch1'
+
+$ vi branch1.txt
+
+Administrator@a401 MINGW64 ~/git/04_Branch_Conflict (branch1)
+$ cat branch1.txt
+branch1.txt is created
+work in the branch1
+
+Administrator@a401 MINGW64 ~/git/04_Branch_Conflict (branch1)
+$ git add branch1.txt
+
+Administrator@a401 MINGW64 ~/git/04_Branch_Conflict (branch1)
+$ git commit -m "work in the branch1"
+[branch1 d60c030] work in the branch1
+ 1 file changed, 1 insertion(+)
+
+
+  (Fast-Forward가 아닌 Merge 테스트 하려면)
+  $ git checkout master
+  $ vi branch1.txt
+$ cat branch1.txt
+branch1.txt is created
+work in the master
+  $ git add branch1.txt
+  $ commit -m "work in the master"
+
+$ git merge branch1 		(현재 master 브랜치에서 branch1 브랜치 병합)
+$ git merge branch1
+Auto-merging branch1.txt
+CONFLICT (content): Merge conflict in branch1.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+Administrator@a401 MINGW64 ~/git/04_Branch_Conflict (master|MERGING)
+$ cat branch1.txt
+branch1.txt is created
+<<<<<<< HEAD
+work in the master
+=======
+work in the branch1
+>>>>>>> branch1
+
+$ vi branch1.txt (수동 통합)
+
+$ cat branch1.txt
+branch1.txt is created
+work in the master and branch1
+
+$ git add branch1.txt
+
+Administrator@a401 MINGW64 ~/git/04_Branch_Conflict (master|MERGING)
+$ git commit
+[master dc5417a] Merge branch 'branch1'
+
+
+* 양방향 Merge (현재 branch에서 계속 작업을 하고 싶을때)
+$ git merge master
+Updating d60c030..dc5417a
+Fast-forward
+ branch1.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Administrator@a401 MINGW64 ~/git/04_Branch_Conflict (branch1)
+$ cat branch1.txt
+branch1.txt is created
+work in the master and branch1
+
+$ git branch -d branch1
+Deleted branch branch1 (was dc5417a).
+
+gitk에서 갱신내역 확인
